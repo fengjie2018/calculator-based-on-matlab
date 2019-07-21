@@ -22,7 +22,7 @@ function varargout = ui_basic(varargin)
 
 % Edit the above text to modify the response to help ui_basic
 
-% Last Modified by GUIDE v2.5 10-Feb-2019 19:39:45
+% Last Modified by GUIDE v2.5 26-Mar-2019 10:18:26
 
 
 % Begin initialization code - DO NOT EDIT
@@ -271,3 +271,17 @@ function bracket_r_Callback(hObject, eventdata, handles)
 textString=get(handles.text1,'String');
 textString=strcat(textString,')');
 set(handles.text1,'String',textString);
+
+
+% --- Executes on button press in exit.
+function exit_Callback(hObject, eventdata, handles)
+% hObject    handle to exit (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+close(gcf);
+
+% --- Executes during object creation, after setting all properties.
+function exit_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to exit (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called

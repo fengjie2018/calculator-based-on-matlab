@@ -22,7 +22,7 @@ function varargout = ui_science(varargin)
 
 % Edit the above text to modify the response to help ui_science
 
-% Last Modified by GUIDE v2.5 12-Feb-2019 08:42:19
+% Last Modified by GUIDE v2.5 26-Mar-2019 11:00:44
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -151,6 +151,10 @@ function result_Callback(hObject, eventdata, handles)
 textString=get(handles.text1,'String');
 try
     result=eval(textString);
+    if isreal(result)
+        result=roundn(result,-3);
+    end
+    result=num2str(result);
     set(handles.text1,'String',result);
 catch
     set(handles.text1,'String','请检查表达式的合法性！请归零以清除出错信息！');
@@ -279,7 +283,7 @@ function num_pi_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 textString = get(handles.text1, 'String' );
-textString =strcat(textString,num2str(pi) );
+textString =strcat(textString,'pi');
 set(handles.text1, 'String' ,textString);
 
 % --- Executes on button press in sin.
@@ -289,7 +293,7 @@ function sin_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 textString = get(handles.text1,'String');
 textString = strcat(textString,'sin(');
-set(handles.text1,'String',textString)
+set(handles.text1,'String',textString);
 
 % --- Executes on button press in cos.
 function cos_Callback(hObject, eventdata, handles)
@@ -315,7 +319,7 @@ function pow_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 textString = get(handles.text1,'String');
-textString = strcat(textString,'^');
+textString = sprintf('%s%s%s%s','(',textString,')','^');
 set(handles.text1,'String',textString);
 
 
@@ -361,8 +365,6 @@ function clean_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 set(handles.text1,'String','');
-set(handles.int_display,'String','');
-set(handles,diff_display,'String','');
 
 % --- Executes on button press in sqrt.
 function sqrt_Callback(hObject, eventdata, handles)
@@ -370,13 +372,8 @@ function sqrt_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 textString = get(handles.text1,'String');
-try
-    temp=eval(textString);
-    result=sqrt(temp);
-    set(handles.text1,'String',result);
-catch
-    set(handles.text1,'String','请检查表达式的合法性！请归零以清除出错信息！');
-end
+textString=sprintf('%s%s%s%s','(',textString,')','^(1/2)');
+set(handles.text1,'String',textString);
 
 % --- Executes on button press in inverse.
 function inverse_Callback(hObject, eventdata, handles)
@@ -415,9 +412,16 @@ textString = get(handles.text1,'String');
 try
     temp=eval(textString);
     result=log(temp);
+    result=roundn(result,-3);
     set(handles.text1,'String',result);
 catch
     set(handles.text1,'String','请检查表达式的合法性！请归零以清除出错信息！');
 end
 
 
+% --- Executes on button press in exit.
+function exit_Callback(hObject, eventdata, handles)
+% hObject    handle to exit (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+close(gcf);

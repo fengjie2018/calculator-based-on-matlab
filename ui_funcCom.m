@@ -22,7 +22,7 @@ function varargout = ui_funcCom(varargin)
 
 % Edit the above text to modify the response to help ui_funcCom
 
-% Last Modified by GUIDE v2.5 16-Mar-2019 11:05:22
+% Last Modified by GUIDE v2.5 26-Mar-2019 10:50:00
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -74,18 +74,18 @@ varargout{1} = handles.output;
 
 
 
-function diff_expression_Callback(hObject, eventdata, handles)
-% hObject    handle to diff_expression (see GCBO)
+function expression_Callback(hObject, eventdata, handles)
+% hObject    handle to expression (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of diff_expression as text
-%        str2double(get(hObject,'String')) returns contents of diff_expression as a double
+% Hints: get(hObject,'String') returns contents of expression as text
+%        str2double(get(hObject,'String')) returns contents of expression as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function diff_expression_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to diff_expression (see GCBO)
+function expression_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to expression (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -139,18 +139,18 @@ function diff_execute_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 syms x;
-expression=get(handles.diff_expression,'String');
-if ~exist('handles.diffNumber','builtin')
+expression=get(handles.expression,'String');
+if ~isfield(handles,'diffNumber')
     handles.diffNumber=1;
 end
 try
-    expression=str2sym(expression);
+    expression=sym(expression);
     result=diff(expression,handles.diffNumber);
     result=char(result);
 catch
     result='非法输入！';
 end
-set(handles.diff_display,'String',result);
+set(handles.display,'String',result);
 
 
 function int_low_Callback(hObject, eventdata, handles)
@@ -199,63 +199,9 @@ end
 
 
 
-function int_expression_Callback(hObject, eventdata, handles)
-% hObject    handle to int_expression (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of int_expression as text
-%        str2double(get(hObject,'String')) returns contents of int_expression as a double
 
 
-% --- Executes during object creation, after setting all properties.
-function int_expression_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to int_expression (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
 
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-% --- Executes on selection change in int_option.
-function int_option_Callback(hObject, eventdata, handles)
-% hObject    handle to int_option (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: contents = cellstr(get(hObject,'String')) returns int_option contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from int_option
-val=get(hObject,'value');%获取数值,从上到下依次1到4
-switch val
-    case 1
-        intNumber=1;
-    case 2
-        intNumber=1;
-    case 3
-        intNumber=2;
-    case 4
-        intNumber=3;
-end
-handles.intNumber=intNumber;
-guidata(hObject,handles);
-
-% --- Executes during object creation, after setting all properties.
-function int_option_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to int_option (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: popupmenu controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-%暂时未能实现多重积分
 % --- Executes on button press in int_execute.
 function int_execute_Callback(hObject, eventdata, handles)
 % hObject    handle to int_execute (see GCBO)
@@ -264,61 +210,38 @@ function int_execute_Callback(hObject, eventdata, handles)
 syms x;
 low=get(handles.int_low,'String');
 up=get(handles.int_up,'String');
-expression=get(handles.int_expression,'String');
-if ~exist('handles.intNumber','builtin')
-    handles.intNumber=1;
-end
+expression=get(handles.expression,'String');
 try
-    expression=str2sym(expression);
+    expression=sym(expression);
     if isempty(low)&&isempty(up)
         result=int(expression,x);
+        result=char(result);
+        result=strcat(result,'+C');
     else
         low=str2num(low);
         up=str2num(up);
         result=int(expression,x,low,up);
+        result=char(result);
     end
-    result=char(result);
 catch
     result='非法输入！';
 end
-set(handles.int_display,'String',result);
+set(handles.display,'String',result);
 
 
 
-function plot_expression_Callback(hObject, eventdata, handles)
-% hObject    handle to plot_expression (see GCBO)
+
+
+    
+
+
+
+
+
+
+% --- Executes on button press in exit.
+function exit_Callback(hObject, eventdata, handles)
+% hObject    handle to exit (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of plot_expression as text
-%        str2double(get(hObject,'String')) returns contents of plot_expression as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function plot_expression_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to plot_expression (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-% --- Executes on button press in plot_execute.
-function plot_execute_Callback(hObject, eventdata, handles)
-% hObject    handle to plot_execute (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-textString=get(handles.plot_expression,'String');
-syms x;
-try
-    y=str2sym(textString);
-    fplot(y)
-    set(handles.plot_display,'String','成功！');
-catch
-    cla
-    set(handles.plot_display,'String','失败！');
-end
+close(gcf);

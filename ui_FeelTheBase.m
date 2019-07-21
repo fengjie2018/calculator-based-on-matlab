@@ -22,7 +22,7 @@ function varargout = ui_FeelTheBase(varargin)
 
 % Edit the above text to modify the response to help ui_FeelTheBase
 
-% Last Modified by GUIDE v2.5 18-Mar-2019 14:20:37
+% Last Modified by GUIDE v2.5 26-Mar-2019 11:08:08
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -254,3 +254,11 @@ function reset_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 set(handles.display, 'String' ,'欢迎使用进制转换工具');
+
+
+% --- Executes on button press in exit.
+function exit_Callback(hObject, eventdata, handles)
+% hObject    handle to exit (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+close(gcf);

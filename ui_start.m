@@ -22,7 +22,7 @@ function varargout = ui_start(varargin)
 
 % Edit the above text to modify the response to help ui_start
 
-% Last Modified by GUIDE v2.5 18-Mar-2019 16:48:11
+% Last Modified by GUIDE v2.5 02-Apr-2019 12:49:04
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -109,3 +109,26 @@ function feelTheBase_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 ui_FeelTheBase;
+
+
+% --- Executes on button press in exit.
+function exit_Callback(hObject, eventdata, handles)
+% hObject    handle to exit (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+close(gcf);
+
+
+% --- Executes on button press in pushbutton9.
+function pushbutton9_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton9 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+ui_plot;
+
+% --- Executes on button press in pushbutton10.
+function pushbutton10_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton10 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+ui_limit;
